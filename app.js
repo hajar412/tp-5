@@ -16,12 +16,21 @@ taskBtn.addEventListener("click", function() {
         return;
     }
 
-    const taskText = taskInput.value.trim();
-    if (taskText !== "") {
-        const taskItem = document.createElement("li");
-        taskItem.textContent = taskText;
-        taskList.appendChild(taskItem);
-        taskInput.value = "";
-        taskInput.hidden = true;
+const taskText = taskInput.value.trim();
+if (taskText !== "") {
+    const li = document.createElement("li");
+    li.innerHTML = `
+        <input type="checkbox">
+        <span>${taskText}</span>
+        <button class="delete-button">x</button>
+    `;
+    taskList.appendChild(li);
+    taskInput.value = "";
+
+}
+});
+taskList.addEventListener("click", function(event) {
+    if (event.target.classList.contains("delete-button")) {
+        event.target.parentElement.remove();
     }
 });
