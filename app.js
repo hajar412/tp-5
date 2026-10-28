@@ -16,6 +16,17 @@ taskBtn.addEventListener("click", function() {
         return;
     }
 
+<<<<<<< HEAD
+    const taskText = taskInput.value.trim();
+    if (taskText !== "") {
+        const taskItem = document.createElement("li");
+        taskItem.textContent = taskText;
+        taskList.appendChild(taskItem);
+        taskInput.value = "";
+        taskInput.hidden = true;
+    }
+});
+=======
 const taskText = taskInput.value.trim();
 if (taskText !== "") {
     const li = document.createElement("li");
@@ -34,3 +45,4 @@ taskList.addEventListener("click", function(event) {
         event.target.parentElement.remove();
     }
 });
+>>>>>>> b9c993ccbe08c1e54548fada2a158a8f58b7af1b
