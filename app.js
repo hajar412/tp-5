@@ -16,6 +16,7 @@ taskBtn.addEventListener("click", function() {
         return;
     }
 
+<<<<<<< HEAD
     const taskText = taskInput.value.trim();
     if (taskText !== "") {
         const taskItem = document.createElement("li");
@@ -25,3 +26,23 @@ taskBtn.addEventListener("click", function() {
         taskInput.hidden = true;
     }
 });
+=======
+const taskText = taskInput.value.trim();
+if (taskText !== "") {
+    const li = document.createElement("li");
+    li.innerHTML = `
+        <input type="checkbox">
+        <span>${taskText}</span>
+        <button class="delete-button">x</button>
+    `;
+    taskList.appendChild(li);
+    taskInput.value = "";
+
+}
+});
+taskList.addEventListener("click", function(event) {
+    if (event.target.classList.contains("delete-button")) {
+        event.target.parentElement.remove();
+    }
+});
+>>>>>>> b9c993ccbe08c1e54548fada2a158a8f58b7af1b
