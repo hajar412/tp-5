@@ -83,3 +83,20 @@ header h3 {
   justify-content: space-between;
   align-items: center;
 } 
+#task-list li:has(input:checked) span {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.delete-button {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background: #cc0000;
+}
