@@ -1,3 +1,13 @@
+:root {
+  --navy: #2E365A;
+  --purple: #6B597F;
+  --mauve: #A2869C;
+  --coral: #BD6C73;
+  --sky: #92A1C2;
+  --blue: #3F5B8D;
+  --bg: #EEF0F6;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,98 +15,117 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  color: #333;
-
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--navy);
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
-#task-container {
+#app {
+  display: flex;
+  align-items: stretch;   /* même hauteur pour les deux cartes */
+  gap: 24px;              /* espace entre les deux */
+  width: 100%;
+  max-width: 1000px;
+  justify-content: center;
+}
+
+#task-container,
+#timer-container {
   background: #fff;
-  width: 100%;
-  max-width: 500px;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-header {
+  flex: 1;                /* chaque carte prend la même largeur */
+  max-width: 480px;
+  padding: 32px 28px;
+  border-radius: 14px;
+  border-top: 5px solid var(--blue);
+  box-shadow: 0 8px 24px rgba(46, 54, 90, 0.12);
   text-align: center;
-  margin-bottom: 30px;
 }
 
-header h1 {
-  font-size: 2rem;
-  margin-bottom: 5px;
+h1 {
+  font-size: 1.9rem;
+  color: var(--navy);
+  margin-bottom: 6px;
 }
 
-header h3 {
+h3 {
   font-weight: normal;
-  color: #777;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  color: var(--purple);
+  margin-bottom: 22px;
 }
 
-#add-task-button {
+#add-task-button, #start-timer-button, #reset-timer-button {
   width: 100%;
-  padding: 10px;
-  background: #4a90e2;
+  padding: 12px;
+  background: var(--blue);
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
+  transition: background 0.2s, transform 0.1s;
 }
 
-#add-task-button:hover {
-  background: #357abd;
+#add-task-button:hover, #start-timer-button:hover, #reset-timer-button:hover {
+  background: var(--navy);
+}
+
+#add-task-button:active, #start-timer-button:active, #reset-timer-button:active {
+  transform: scale(0.98);
 }
 
 #task-input {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--sky);
+  border-radius: 8px;
   font-size: 1rem;
-  margin-bottom: 15px;
+  color: var(--navy);
+  margin-bottom: 14px;
 }
 
 #task-input:focus {
   outline: none;
-  border-color: #4a90e2;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(63, 91, 141, 0.15);
 }
 
 #task-list {
   list-style: none;
+  text-align: left;
 }
 
 #task-list li {
-  background: #f9f9f9;
-  padding: 10px 12px;
-  border-radius: 6px;
-  margin-bottom: 8px;
+  background: var(--bg);
+  border-left: 4px solid var(--coral);
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-} 
-#task-list li:has(input:checked) span {
-    text-decoration: line-through;
-    color: #999;
+  transition: transform 0.15s;
 }
 
-.delete-button {
-    background: #ff4d4d;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
+#task-list li:hover {
+  transform: translateX(3px);
 }
 
-.delete-button:hover {
-    background: #cc0000;
+#task-list li button {
+  background: transparent;
+  color: var(--coral);
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#task-list li button:hover {
+  color: var(--navy);
 }
