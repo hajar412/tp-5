@@ -1,62 +1,64 @@
-
 const taskBtn = document.getElementById("add-task-button");
 const taskInput = document.getElementById("task-input");
 const taskList = document.getElementById("task-list");
 const taskCount = document.getElementById("task-count");
 
-taskInput.addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        taskBtn.click();
-    }
+// ---------- Tâches ----------
+taskInput.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    taskBtn.click();
+  }
 });
 
-taskBtn.addEventListener("click", function() {
-    if (taskInput.hidden) {
-        taskInput.hidden = false;
-        taskInput.focus();
-        return;
-    }
+taskBtn.addEventListener("click", function () {
+  if (taskInput.hidden) {
+    taskInput.hidden = false;
+    taskInput.focus();
+    return;
+  }
 
-    const taskText = taskInput.value.trim();
+  const taskText = taskInput.value.trim();
 
-    if (taskText !== "") {
-        const li = document.createElement("li");
+  if (taskText !== "") {
+    const li = document.createElement("li");
 
-        li.innerHTML = `
-            <input type="checkbox">
-            <span></span>
-            <button class="delete-button">x</button>
-        `;
+    li.innerHTML = `
+      <input type="checkbox">
+      <span></span>
+      <button class="delete-button">x</button>
+    `;
 
-        li.querySelector("span").textContent = taskText;
+    li.querySelector("span").textContent = taskText;
 
-        taskList.appendChild(li);
-        taskInput.value = "";
-        taskInput.hidden = true;
+    taskList.appendChild(li);
+    taskInput.value = "";
+    taskInput.hidden = true;
 
-        updateCount();
-    }
+    updateCount();
+  }
 });
 
-(() => {
-  let seconds = 25 * 60;
-  let interval = null;
-  const display = document.getElementById("timer-display");
-
-  function render() {
-    const m = String(Math.floor(seconds / 60)).padStart(2, "0");
-    const s = String(seconds % 60).padStart(2, "0");
-    display.textContent = `${m}:${s}`;
+taskList.addEventListener("click", function (event) {
+  if (event.target.classList.contains("delete-button")) {
+    event.target.parentElement.remove();
+    updateCount();
   }
+});
 
-  function stop() {
-    clearInterval(interval);
-    interval = null;
-  }
-let timeLeft = 25 * 60;
+function updateCount() {
+  const count = taskList.children.length;
+  taskCount.textContent = count + (count > 1 ? " tasks" : " task");
+}
+
+// ---------- Minuteur Pomodoro ----------
+const WORK_TIME = 25 * 60;
+let timeLeft = WORK_TIME;
 let timerId = null;
+
 const timerDisplay = document.getElementById("timer-display");
+const startBtn = document.getElementById("start-timer-button");
+const resetBtn = document.getElementById("reset-timer-button");
 
 function updateDisplay() {
   const m = String(Math.floor(timeLeft / 60)).padStart(2, "0");
@@ -64,58 +66,39 @@ function updateDisplay() {
   timerDisplay.textContent = m + ":" + s;
 }
 
+function stopTimer() {
+  clearInterval(timerId);
+  timerId = null;
+}
+
 updateDisplay();
 
-document.getElementById("start-timer-button").addEventListener("click", function () {
-  if (timerId) return;
+startBtn.addEventListener("click", function () {
+  // Si le minuteur tourne : on met en pause
+  if (timerId) {
+    stopTimer();
+    startBtn.textContent = "Resume";
+    return;
+  }
+
+  // Sinon : on démarre ou on reprend
+  startBtn.textContent = "Pause";
   timerId = setInterval(function () {
     if (timeLeft > 0) {
       timeLeft--;
       updateDisplay();
     } else {
-      clearInterval(timerId);
-      timerId = null;
+      stopTimer();
+      startBtn.textContent = "Start";
+      timeLeft = WORK_TIME;
+      updateDisplay();
     }
   }, 1000);
 });
 
-document.getElementById("reset-timer-button").addEventListener("click", function () {
-  clearInterval(timerId);
-  timerId = null;
-  timeLeft = 25 * 60;
+resetBtn.addEventListener("click", function () {
+  stopTimer();
+  timeLeft = WORK_TIME;
   updateDisplay();
+  startBtn.textContent = "Start";
 });
-  document.getElementById("timer-start").onclick = () => {
-    if (interval) return;
-    interval = setInterval(() => {
-      seconds--;
-      render();
-      if (seconds <= 0) {
-        stop();
-        alert("Temps écoulé !");
-      }
-    }, 1000);
-  };
-
-  document.getElementById("timer-pause").onclick = stop;
-
-  document.getElementById("timer-reset").onclick = () => {
-    stop();
-    seconds = 25 * 60;
-    render();
-  };
-})();
-taskList.addEventListener("click", function(event) {
-    if (event.target.classList.contains("delete-button")) {
-        event.target.parentElement.remove();
-        updateCount();
-    }
-});
-
-// Mettre à jour le nombre de tâches
-function updateCount() {
-    const count = taskList.children.length;
-
-    taskCount.textContent =
-        count + (count > 1 ? " tasks" : " task");
-}

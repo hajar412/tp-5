@@ -34,8 +34,7 @@ body {
   justify-content: center;
 }
 
-#task-container,
-#timer-container {
+#task-container, #timer-container {
   background: #fff;
   flex: 1;                /* chaque carte prend la même largeur */
   max-width: 480px;
@@ -55,8 +54,20 @@ h1 {
 h3 {
   font-weight: normal;
   font-size: 0.95rem;
-  color: var(--purple);
+  color: var(--navy);
   margin-bottom: 22px;
+}
+
+#task-count {
+  font-size: 0.9rem;
+  color: var(--mauve);
+  margin-bottom: 22px;
+}
+
+header h3 {
+  font-size: 1rem;
+  color: var(--mauve);
+  margin-top: 4px;
 }
 
 #add-task-button, #start-timer-button, #reset-timer-button {
@@ -71,6 +82,26 @@ h3 {
   cursor: pointer;
   margin-bottom: 14px;
   transition: background 0.2s, transform 0.1s;
+}
+
+#timer-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 14px;
+  margin-bottom: auto;
+}
+
+#timer-display {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 14px;
+  margin-top: 14px;
+  color: var(--bg);
+  border: 2px solid var(--mauve);
+  border-radius: 8px;
+  padding: 12px 0;
+  background: linear-gradient(var(--sky), var(--blue));
 }
 
 #add-task-button:hover, #start-timer-button:hover, #reset-timer-button:hover {
