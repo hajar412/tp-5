@@ -25,3 +25,40 @@ taskBtn.addEventListener("click", function() {
         taskInput.hidden = true;
     }
 });
+
+(() => {
+  let seconds = 25 * 60;
+  let interval = null;
+  const display = document.getElementById("timer-display");
+
+  function render() {
+    const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const s = String(seconds % 60).padStart(2, "0");
+    display.textContent = `${m}:${s}`;
+  }
+
+  function stop() {
+    clearInterval(interval);
+    interval = null;
+  }
+
+  document.getElementById("timer-start").onclick = () => {
+    if (interval) return;
+    interval = setInterval(() => {
+      seconds--;
+      render();
+      if (seconds <= 0) {
+        stop();
+        alert("Temps écoulé !");
+      }
+    }, 1000);
+  };
+
+  document.getElementById("timer-pause").onclick = stop;
+
+  document.getElementById("timer-reset").onclick = () => {
+    stop();
+    seconds = 25 * 60;
+    render();
+  };
+})();
