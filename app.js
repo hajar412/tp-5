@@ -54,7 +54,37 @@ taskBtn.addEventListener("click", function() {
     clearInterval(interval);
     interval = null;
   }
+let timeLeft = 25 * 60;
+let timerId = null;
+const timerDisplay = document.getElementById("timer-display");
 
+function updateDisplay() {
+  const m = String(Math.floor(timeLeft / 60)).padStart(2, "0");
+  const s = String(timeLeft % 60).padStart(2, "0");
+  timerDisplay.textContent = m + ":" + s;
+}
+
+updateDisplay();
+
+document.getElementById("start-timer-button").addEventListener("click", function () {
+  if (timerId) return;
+  timerId = setInterval(function () {
+    if (timeLeft > 0) {
+      timeLeft--;
+      updateDisplay();
+    } else {
+      clearInterval(timerId);
+      timerId = null;
+    }
+  }, 1000);
+});
+
+document.getElementById("reset-timer-button").addEventListener("click", function () {
+  clearInterval(timerId);
+  timerId = null;
+  timeLeft = 25 * 60;
+  updateDisplay();
+});
   document.getElementById("timer-start").onclick = () => {
     if (interval) return;
     interval = setInterval(() => {
