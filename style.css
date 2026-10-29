@@ -14,7 +14,7 @@
   padding: 0;
 }
 
-body {
+body {  
   font-family: "Segoe UI", Arial, sans-serif;
   background: var(--bg);
   color: var(--navy);
@@ -27,8 +27,8 @@ body {
 
 #app {
   display: flex;
-  align-items: stretch;   /* même hauteur pour les deux cartes */
-  gap: 24px;              /* espace entre les deux */
+  align-items: stretch;
+  gap: 24px;
   width: 100%;
   max-width: 1000px;
   justify-content: center;
@@ -36,13 +36,20 @@ body {
 
 #task-container, #timer-container {
   background: #fff;
-  flex: 1;                /* chaque carte prend la même largeur */
+  flex: 1;
   max-width: 480px;
   padding: 32px 28px;
   border-radius: 14px;
   border-top: 5px solid var(--blue);
   box-shadow: 0 8px 24px rgba(46, 54, 90, 0.12);
   text-align: center;
+}
+
+/* NOUVEAU : centre le contenu du timer verticalement */
+#timer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 h1 {
@@ -60,13 +67,13 @@ h3 {
 
 #task-count {
   font-size: 0.9rem;
-  color: var(--mauve);
+  color: var(--purple);
   margin-bottom: 22px;
 }
 
 header h3 {
   font-size: 1rem;
-  color: var(--mauve);
+  color: var(--purple);
   margin-top: 4px;
 }
 
@@ -81,15 +88,23 @@ header h3 {
   font-weight: 600;
   cursor: pointer;
   margin-bottom: 14px;
-  transition: background 0.2s, transform 0.1s;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.1s;
 }
 
+/* MODIFIÉ : suppression de margin-bottom: auto (il cassait le centrage vertical) */
 #timer-controls {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   justify-content: center;
   margin-top: 14px;
-  margin-bottom: auto;
+}
+
+/* NOUVEAU : boutons du timer */
+#timer-controls button {
+  flex: 1;
+  padding: 14px;
+  margin-bottom: 0;
+  border: 2px solid var(--blue);
 }
 
 #timer-display {
@@ -112,6 +127,29 @@ header h3 {
   transform: scale(0.98);
 }
 
+/* NOUVEAU : Start devient corail quand le timer tourne (Pause) */
+#start-timer-button.running {
+  background: var(--coral);
+  border-color: var(--coral);
+}
+
+#start-timer-button.running:hover {
+  background: #a85a61;
+  border-color: #a85a61;
+}
+
+/* NOUVEAU : Reset en version contour (action secondaire) */
+#timer-controls #reset-timer-button {
+  background: transparent;
+  color: var(--blue);
+  border: 2px solid var(--sky);
+}
+
+#timer-controls #reset-timer-button:hover {
+  background: var(--bg);
+  border-color: var(--blue);
+}
+
 #task-input {
   width: 100%;
   padding: 12px 14px;
@@ -120,6 +158,11 @@ header h3 {
   font-size: 1rem;
   color: var(--navy);
   margin-bottom: 14px;
+}
+
+#task-input::placeholder {
+  color: var(--purple);
+  opacity: 0.7;
 }
 
 #task-input:focus {

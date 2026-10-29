@@ -74,15 +74,17 @@ function stopTimer() {
 updateDisplay();
 
 startBtn.addEventListener("click", function () {
-  // Si le minuteur tourne : on met en pause
+  // Si le minuteur tourne : pause
   if (timerId) {
     stopTimer();
-    startBtn.textContent = "Resume";
+    startBtn.textContent = timeLeft === WORK_TIME ? "Start" : "Resume";
+    startBtn.classList.remove("running");
     return;
   }
 
-  // Sinon : on démarre ou on reprend
+  // Sinon : démarrer / reprendre
   startBtn.textContent = "Pause";
+  startBtn.classList.add("running");
   timerId = setInterval(function () {
     if (timeLeft > 0) {
       timeLeft--;
@@ -90,6 +92,7 @@ startBtn.addEventListener("click", function () {
     } else {
       stopTimer();
       startBtn.textContent = "Start";
+      startBtn.classList.remove("running");
       timeLeft = WORK_TIME;
       updateDisplay();
     }
@@ -101,4 +104,5 @@ resetBtn.addEventListener("click", function () {
   timeLeft = WORK_TIME;
   updateDisplay();
   startBtn.textContent = "Start";
+  startBtn.classList.remove("running");
 });
