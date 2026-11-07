@@ -1,0 +1,205 @@
+:root {
+  --navy: #2E365A;
+  --purple: #6B597F;
+  --mauve: #A2869C;
+  --coral: #BD6C73;
+  --sky: #92A1C2;
+  --blue: #3F5B8D;
+  --bg: #EEF0F6;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {  
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--navy);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+#app {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+  width: 100%;
+  max-width: 1000px;
+  justify-content: center;
+}
+
+#task-container, #timer-container {
+  background: #fff;
+  flex: 1;
+  max-width: 480px;
+  padding: 32px 28px;
+  border-radius: 14px;
+  border-top: 5px solid var(--blue);
+  box-shadow: 0 8px 24px rgba(46, 54, 90, 0.12);
+  text-align: center;
+}
+
+/* NOUVEAU : centre le contenu du timer verticalement */
+#timer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 1.9rem;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+h3 {
+  font-weight: normal;
+  font-size: 0.95rem;
+  color: var(--navy);
+  margin-bottom: 22px;
+}
+
+#task-count {
+  font-size: 0.9rem;
+  color: var(--purple);
+  margin-bottom: 22px;
+}
+
+header h3 {
+  font-size: 1rem;
+  color: var(--purple);
+  margin-top: 4px;
+}
+
+#add-task-button, #start-timer-button, #reset-timer-button {
+  width: 100%;
+  padding: 12px;
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 14px;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.1s;
+}
+
+/* MODIFIÉ : suppression de margin-bottom: auto (il cassait le centrage vertical) */
+#timer-controls {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+/* NOUVEAU : boutons du timer */
+#timer-controls button {
+  flex: 1;
+  padding: 14px;
+  margin-bottom: 0;
+  border: 2px solid var(--blue);
+}
+
+#timer-display {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 14px;
+  margin-top: 14px;
+  color: var(--bg);
+  border: 2px solid var(--mauve);
+  border-radius: 8px;
+  padding: 12px 0;
+  background: linear-gradient(var(--sky), var(--blue));
+}
+
+#add-task-button:hover, #start-timer-button:hover, #reset-timer-button:hover {
+  background: var(--navy);
+}
+
+#add-task-button:active, #start-timer-button:active, #reset-timer-button:active {
+  transform: scale(0.98);
+}
+
+/* NOUVEAU : Start devient corail quand le timer tourne (Pause) */
+#start-timer-button.running {
+  background: var(--coral);
+  border-color: var(--coral);
+}
+
+#start-timer-button.running:hover {
+  background: #a85a61;
+  border-color: #a85a61;
+}
+
+/* NOUVEAU : Reset en version contour (action secondaire) */
+#timer-controls #reset-timer-button {
+  background: transparent;
+  color: var(--blue);
+  border: 2px solid var(--sky);
+}
+
+#timer-controls #reset-timer-button:hover {
+  background: var(--bg);
+  border-color: var(--blue);
+}
+
+#task-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--sky);
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+
+#task-input::placeholder {
+  color: var(--purple);
+  opacity: 0.7;
+}
+
+#task-input:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(63, 91, 141, 0.15);
+}
+
+#task-list {
+  list-style: none;
+  text-align: left;
+}
+
+#task-list li {
+  background: var(--bg);
+  border-left: 4px solid var(--coral);
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.15s;
+}
+
+#task-list li:hover {
+  transform: translateX(3px);
+}
+
+#task-list li button {
+  background: transparent;
+  color: var(--coral);
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#task-list li button:hover {
+  color: var(--navy);
+}
